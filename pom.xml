@@ -57,6 +57,16 @@
           </execution>
         </executions>
       </plugin>
+
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-release-plugin</artifactId>
+        <version>2.5.1</version>
+        <configuration>
+          <tagNameFormat>v@{project.version}</tagNameFormat>
+          <autoVersionSubmodules>true</autoVersionSubmodules>
+        </configuration>
+      </plugin>
     </plugins>
   </build>
   <dependencies>
@@ -83,4 +93,44 @@
       <version>3.2.1</version>
     </dependency>
   </dependencies>
+
+
+  <!-- <repositories>
+    <repository>
+      <id>wmf-mirrored</id>
+      <url>https://archiva.wikimedia.org/repository/mirrored/</url>
+    </repository>
+    <repository>
+      <id>wmf-releases</id>
+      <url>https://archiva.wikimedia.org/repository/releases/</url>
+    </repository>
+  </repositories>
+
+  <pluginRepositories>
+    <pluginRepository>
+      <id>wmf-mirrored</id>
+      <url>https://archiva.wikimedia.org/repository/mirrored/</url>
+    </pluginRepository>
+  </pluginRepositories> -->
+
+  <scm>
+    <url>scm:git:https://gerrit.wikimedia.org/r/p/analytics/ua-parser/uap-java</url>
+    <connection>scm:git:https://gerrit.wikimedia.org/r/p/analytics/ua-parser/uap-java</connection>
+    <developerConnection>scm:git:ssh://${user.name}@gerrit.wikimedia.org:29418/analytics/ua-parser/uap-java</developerConnection>
+    <tag>HEAD</tag>
+  </scm>
+
+
+  <distributionManagement>
+    <repository>
+      <id>archiva.releases</id>
+      <name>Internal Release Repository</name>
+      <url>https://archiva.wikimedia.org/repository/releases/</url>
+    </repository>
+    <snapshotRepository>
+      <id>archiva.snapshots</id>
+      <name>Internal Snapshot Repository</name>
+      <url>https://archiva.wikimedia.org/repository/snapshots/</url>
+    </snapshotRepository>
+  </distributionManagement>
 </project>
