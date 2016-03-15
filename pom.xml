@@ -1,5 +1,4 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
   <modelVersion>4.0.0</modelVersion>
   <groupId>ua_parser</groupId>
   <artifactId>ua-parser</artifactId>
@@ -10,6 +9,44 @@
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
   </properties>
+  <repositories>
+    <repository>
+      <id>wmf-mirrored</id>
+      <url>https://archiva.wikimedia.org/repository/mirrored/</url>
+    </repository>
+    <repository>
+      <id>wmf-releases</id>
+      <url>https://archiva.wikimedia.org/repository/releases/</url>
+    </repository>
+  </repositories>
+
+  <pluginRepositories>
+    <pluginRepository>
+      <id>wmf-mirrored</id>
+      <url>https://archiva.wikimedia.org/repository/mirrored/</url>
+    </pluginRepository>
+  </pluginRepositories>
+
+  <distributionManagement>
+    <repository>
+      <id>archiva.releases</id>
+      <name>Internal Release Repository</name>
+      <url>https://archiva.wikimedia.org/repository/releases/</url>
+    </repository>
+    <snapshotRepository>
+      <id>archiva.snapshots</id>
+      <name>Internal Snapshot Repository</name>
+      <url>https://archiva.wikimedia.org/repository/snapshots/</url>
+    </snapshotRepository>
+  </distributionManagement>
+
+  <scm>
+    <url>scm:git:https://gerrit.wikimedia.org/r/p/analytics/ua-parser/uap-java</url>
+    <connection>scm:git:https://gerrit.wikimedia.org/r/p/analytics/ua-parser/uap-java</connection>
+    <developerConnection>scm:git:ssh://${user.name}@gerrit.wikimedia.org:29418/analytics/ua-parser/uap-java</developerConnection>
+    <tag>HEAD</tag>
+  </scm>
+
   <build>
     <resources>
       <resource>
@@ -57,8 +94,18 @@
           </execution>
         </executions>
       </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-release-plugin</artifactId>
+        <version>2.5.1</version>
+        <configuration>
+          <tagNameFormat>v@{project.version}</tagNameFormat>
+          <autoVersionSubmodules>true</autoVersionSubmodules>
+        </configuration>
+      </plugin>
     </plugins>
   </build>
+
   <dependencies>
     <dependency>
       <groupId>org.yaml</groupId>
