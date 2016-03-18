@@ -105,7 +105,6 @@
               <goal>copy-resources</goal>
             </goals>
             <configuration>
-              <outputDirectory>ua_parser</outputDirectory>
               <resources>
                 <targetPath>ua_parser</targetPath>
                 <resource>
