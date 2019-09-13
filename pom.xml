@@ -2,27 +2,27 @@
   xmlns="http://maven.apache.org/POM/4.0.0"
   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
   xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
-  
+
   <modelVersion>4.0.0</modelVersion>
   <groupId>com.github.ua-parser</groupId>
   <artifactId>uap-java</artifactId>
   <packaging>jar</packaging>
-  <version>1.4.4-SNAPSHOT</version>
-  <name>User Agent Parser for Java</name>
-  
+  <version>1.4.4-core0.6.9~1-wmf</version>
+  <name>User Agent Parser for Java - WMF fork</name>
+
   <description>
   	Java implementation of the UA Parser library. Derives operating system, browser and device
   	metadata from a user-agent string. This library consumes the regular expression
   	rules defined in https://github.com/ua-parser/uap-core.
   </description>
-  
+
   <licenses>
     <license>
   	  <name>The Apache License, Version 2.0</name>
       <url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
     </license>
   </licenses>
-  
+
   <developers>
     <developer>
       <name>Benjamin Possolo</name>
@@ -30,31 +30,58 @@
       <organization>UA Parser</organization>
       <organizationUrl>https://github.com/ua-parser</organizationUrl>
     </developer>
+    <developer>
+      <name>WMF Analytics Engineering Team</name>
+      <email>analytics@lists.wikimedia.org</email>
+      <organization>Wikimedia Foundation</organization>
+      <organizationUrl>https://wikimediafoundation.org</organizationUrl>
+    </developer>
   </developers>
-  
-  <url>https://github.com/ua-parser/uap-java</url>
-  
-  <scm>
-    <connection>scm:git:git://github.com/ua-parser/uap-java.git</connection>
-    <developerConnection>scm:git:ssh://github.com:ua-parser/uap-java.git</developerConnection>
-    <url>http://github.com/ua-parser/uap-java/tree/master</url>
-  </scm>
-  
-  <distributionManagement>
-    <snapshotRepository>
-      <id>ossrh</id>
-      <url>https://oss.sonatype.org/content/repositories/snapshots</url>
-    </snapshotRepository>
+
+  <url>https://github.com/wikimedia/analytics-ua-parser-uap-java/</url>
+
+  <repositories>
     <repository>
-      <id>ossrh</id>
-      <url>https://oss.sonatype.org/service/local/staging/deploy/maven2/</url>
+      <id>wmf-mirrored</id>
+      <url>https://archiva.wikimedia.org/repository/mirrored/</url>
     </repository>
+    <repository>
+      <id>wmf-releases</id>
+      <url>https://archiva.wikimedia.org/repository/releases/</url>
+    </repository>
+  </repositories>
+
+  <pluginRepositories>
+    <pluginRepository>
+      <id>wmf-mirrored</id>
+      <url>https://archiva.wikimedia.org/repository/mirrored/</url>
+    </pluginRepository>
+  </pluginRepositories>
+
+  <distributionManagement>
+    <repository>
+      <id>archiva.releases</id>
+      <name>Internal Release Repository</name>
+      <url>https://archiva.wikimedia.org/repository/releases/</url>
+    </repository>
+    <snapshotRepository>
+      <id>archiva.snapshots</id>
+      <name>Internal Snapshot Repository</name>
+      <url>https://archiva.wikimedia.org/repository/snapshots/</url>
+    </snapshotRepository>
   </distributionManagement>
-  
+
+  <scm>
+    <url>scm:git:https://gerrit.wikimedia.org/r/p/analytics/ua-parser/uap-java</url>
+    <connection>scm:git:https://gerrit.wikimedia.org/r/p/analytics/ua-parser/uap-java</connection>
+    <developerConnection>scm:git:ssh://${user.name}@gerrit.wikimedia.org:29418/analytics/ua-parser/uap-java</developerConnection>
+    <tag>1.4.4-wmf</tag>
+  </scm>
+
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
   </properties>
-  
+
   <build>
     <resources>
       <resource>
@@ -65,7 +92,7 @@
         </includes>
       </resource>
     </resources>
-    
+
     <testResources>
       <testResource>
         <targetPath>ua_parser</targetPath>
@@ -82,7 +109,7 @@
         </includes>
       </testResource>
     </testResources>
-    
+
     <plugins>
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
@@ -93,61 +120,23 @@
           <target>1.7</target>
         </configuration>
       </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-source-plugin</artifactId>
+        <version>3.0.1</version>
+        <executions>
+          <execution>
+            <id>attach-sources</id>
+            <phase>package</phase>
+            <goals>
+              <goal>jar-no-fork</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
     </plugins>
   </build>
-  
-  <profiles>
-    <profile>
-      <id>ossrh</id>
-      <build>
-        <plugins>
-          <plugin>
-            <groupId>org.apache.maven.plugins</groupId>
-            <artifactId>maven-source-plugin</artifactId>
-            <version>3.0.1</version>
-            <executions>
-              <execution>
-                <id>attach-sources</id>
-                <phase>package</phase>
-                <goals>
-                  <goal>jar-no-fork</goal>
-                </goals>
-              </execution>
-            </executions>
-          </plugin>
-          <plugin>
-            <groupId>org.apache.maven.plugins</groupId>
-            <artifactId>maven-javadoc-plugin</artifactId>
-            <version>3.0.0</version>
-            <executions>
-              <execution>
-                <id>attach-javadocs</id>
-                <phase>package</phase>
-                <goals>
-                  <goal>jar</goal>
-                </goals>
-              </execution>
-            </executions>
-          </plugin>
-          <plugin>
-            <groupId>org.apache.maven.plugins</groupId>
-            <artifactId>maven-gpg-plugin</artifactId>
-            <version>1.6</version>
-            <executions>
-              <execution>
-                <id>sign-artifacts</id>
-                <phase>verify</phase>
-                <goals>
-                  <goal>sign</goal>
-                </goals>
-              </execution>
-            </executions>
-          </plugin>
-        </plugins>
-      </build>
-    </profile>
-  </profiles>
-  
+
   <dependencies>
     <dependency>
       <groupId>org.yaml</groupId>
